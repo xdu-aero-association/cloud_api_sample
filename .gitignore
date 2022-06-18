@@ -1,2 +1,4 @@
 # cloud_api_sample_docker_v1.0.0.tar excluded
 *.tar
+# MySQL data excluded
+data/
