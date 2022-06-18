@@ -7,7 +7,7 @@ ${imageName}="dji/nginx:1.0.0"
 
 (& docker images  -qf "reference=${imageName}") | ForEach-Object { docker rmi $_ }
 
-cd source/nginx/
+Set-Location source/nginx/
 
 docker build -t ${imageName} .
 

@@ -7,7 +7,7 @@ ${imageName}="dji/cloud_api_sample:1.0.0"
 
 (& docker images  -qf "reference=${imageName}") | ForEach-Object { docker rmi $_ }
 
-cd source/backend_service/
+Set-Location source/backend_service/
 
 docker build -t ${imageName} .
 
