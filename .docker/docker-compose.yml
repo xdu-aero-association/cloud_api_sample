@@ -1,0 +1,57 @@
+version: "3"
+services:
+  nginx:
+    image: dji/nginx:1.0.0
+    networks:
+      - cloud_service_bridge
+    ports:
+      - "8080:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime
+  cloud_api_sample:
+    image: dji/cloud_api_sample:1.0.0
+    depends_on:
+      - mysql
+      - emqx
+    ports:
+      - "6789:6789"
+    volumes:
+      - /etc/localtime:/etc/localtime
+    hostname: cloud_api_sample
+     
+    networks:
+      - cloud_service_bridge
+  emqx:
+    image: emqx/emqx:4.4.0
+    ports:
+      - "18083:18083"
+      - "1883:1883"
+      - "8083:8083"
+      - "8883:8883"
+      - "8084:8084"
+    environment:
+      - EMQX_ALLOW_ANONYMOUS=true
+    hostname: emqx-broker
+    networks:
+      - cloud_service_bridge
+  mysql:
+    image: dji/mysql:1.0.0
+    networks:
+      - cloud_service_bridge
+    ports:
+      - "3306:3306"
+    volumes:
+      # Bug: We need to comment out the following two lines below
+      #- /etc/group:/etc/group:ro
+      #- /etc/passwd:/etc/passwd:ro
+      - /etc/localtime:/etc/localtime
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    hostname: cloud_api_sample_mysql
+networks:
+  cloud_service_bridge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.6.0/24
