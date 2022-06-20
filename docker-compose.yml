@@ -41,9 +41,9 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      # In windows system, we need to comment out the following two lines below
-      - /etc/group:/etc/group:ro
-      - /etc/passwd:/etc/passwd:ro
+      # Bug: We need to comment out the following two lines below
+      #- /etc/group:/etc/group:ro
+      #- /etc/passwd:/etc/passwd:ro
       - /etc/localtime:/etc/localtime
       - ./data/mysql:/var/lib/mysql
     environment:
