@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      frontImageName: "dji/nginx:1.0.0"
+      backendImageName: "dji/cloud_api_sample:1.0.0"
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Front Docker image
+      run: |
+        cd source/nginx/
+        docker build -t $frontImageName .
+
+    - uses: actions/checkout@v3
+    - name: Build the Backend Docker image
+      run: |
+        cd source/backend_service/
+        docker build -t $backendImageName .
