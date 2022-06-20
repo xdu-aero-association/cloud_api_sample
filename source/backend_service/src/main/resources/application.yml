@@ -7,7 +7,7 @@ spring:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/cloud_sample?useSSL=false&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://cloud_api_sample_mysql:3306/cloud_sample?useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: root
       initial-size: 10
